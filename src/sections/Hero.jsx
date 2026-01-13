@@ -8,29 +8,46 @@ import {
   Download,
 } from "lucide-react";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const skills = [
   "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "GraphQL",
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "Docker",
-  "AWS",
+  "Firebase",
+  "HTML",
+  "CSS",
+  "JavaScript",
   "Vercel",
   "Tailwind CSS",
-  "Prisma",
-  "Jest",
-  "Cypress",
-  "Figma",
   "Git",
   "GitHub Actions",
+  "Netlify",
+  "Gitlab",
+  "Node.js",
+  "Chrome Developer Tools",
+  "npm",
 ];
 
 export const Hero = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Bg */}
@@ -47,6 +64,7 @@ export const Hero = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <div
+            key={i}
             className="absolute w-1.5 h-1.5 rounded-full opacity-60"
             style={{
               backgroundColor: "#20B2A6",
@@ -69,7 +87,7 @@ export const Hero = () => {
             <div className="animate-fade-in">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                Software Engineer • React Specialist
+                Intermediate Programmer
               </span>
             </div>
 
@@ -85,43 +103,78 @@ export const Hero = () => {
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                Hi, I'm Pedro Machado — a software engineer specializing in
-                React, Next.js, and TypeScript. I build scalable, performant web
-                applications that users love.
+                An aspiring programmer with a strong grasp of coding basics,
+                passionate about building small apps, experimenting with ideas,
+                and continuously learning to create more advanced projects.
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
-              <Button size="lg">
-                Contact Me <ArrowRight className="w-5 h-5" />
-              </Button>
-              <AnimatedBorderButton>
-                <Download className="w-5 h-5" />
-                Download CV
-              </AnimatedBorderButton>
+              {mounted && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button size="lg" className="group">
+                    <motion.span
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="inline-flex items-center gap-2"
+                    >
+                      Contact Me <ArrowRight className="w-5 h-5" />
+                    </motion.span>
+                  </Button>
+                </motion.div>
+              )}
+
+              {mounted && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <AnimatedBorderButton
+                    as="a"
+                    href="/cv.pdf"
+                    download="Abdulmalik_Frontend_Developer_CV.pdf"
+                    className="flex items-center gap-2"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download CV
+                  </AnimatedBorderButton>
+                </motion.div>
+              )}
             </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
               <span className="text-sm text-muted-foreground">Follow me: </span>
               {[
-                { icon: Github, href: "#" },
+                { icon: Github, href: "https://github.com/Abdulmalik-dev75" },
                 { icon: Linkedin, href: "#" },
                 { icon: Twitter, href: "#" },
               ].map((social, idx) => (
-                <a
+                <motion.a
                   key={idx}
                   href={social.href}
                   className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {<social.icon className="w-5 h-5" />}
-                </a>
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
               ))}
             </div>
           </div>
+
           {/* Right Column - Profile Image */}
-          <div className="relatice animate-fade-in animation-delay-300">
+          <div className="relative animate-fade-in animation-delay-300">
             {/* Profile Image */}
             <div className="relative max-w-md mx-auto">
               <div
@@ -130,29 +183,51 @@ export const Hero = () => {
               from-primary/30 via-transparent 
               to-primary/10 blur-2xl animate-pulse"
               />
-              <div className="relative glass rounded-3xl p-2 glow-border">
-                <img
-                  src="/profile-photo.jpg"
-                  alt="Pedro Machado"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
+              <div className="relative flex justify-center items-center glass rounded-3xl p-2 glow-border">
+                <div className="w-full h-full overflow-hidden rounded-full">
+                  <img
+                    src="/profile-photo.png"
+                    alt="Pedro Machado"
+                    className="w-full scale-105  aspect-[4/5] object-cover rounded-full hover:scale-90 hover:opacity-85 transition-transform duration-500"
+                  />
+                </div>
 
                 {/* Floating Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float">
+                <motion.div
+                  className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3"
+                  animate={{
+                    y: [0, -10, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                     <span className="text-sm font-medium">
                       Available for work
                     </span>
                   </div>
-                </div>
+                </motion.div>
+
                 {/* Stats Badge */}
-                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
-                  <div className="text-2xl font-bold text-primary">5+</div>
-                  <div className="text-xs text-muted-foreground">
-                    Years Exp.
-                  </div>
-                </div>
+                <motion.div
+                  className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3"
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                >
+                  <div className="text-2xl font-bold text-primary">1+</div>
+                  <div className="text-xs text-muted-foreground">Year Exp.</div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -194,7 +269,12 @@ export const Hero = () => {
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
         >
           <span className="text-xs uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="w-6 h-6 animate-bounce" />
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ChevronDown className="w-6 h-6" />
+          </motion.div>
         </a>
       </div>
     </section>

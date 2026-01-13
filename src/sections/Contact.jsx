@@ -14,19 +14,20 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "pedro@example.com",
-    href: "mailto:pedro@example.com",
+    value: "ibrahimmalikayomide1@gmail.com",
+    href: "mailto:ibrahimmalikayomide1@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+234 811 602 4446",
+    href: "tel:+2348116024446",
   },
+
   {
     icon: MapPin,
     label: "Location",
-    value: "San Francisco, CA",
+    value: "Nigeria, Kwara State, Ilorin",
     href: "#",
   },
 ];
@@ -76,11 +77,10 @@ export const Contact = () => {
       });
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
-      console.error("EmailJS error:", error);
+      console.error("EmailJS error:", err);
       setSubmitStatus({
         type: "error",
-        message:
-          error.text || "Failed to send message. Please try again later.",
+        message: err.text || "Failed to send message. Please try again later.",
       });
     } finally {
       setIsLoading(false);
@@ -243,8 +243,8 @@ export const Contact = () => {
               </div>
               <p className="text-muted-foreground text-sm">
                 I'm currently open to new opportunities and exciting projects.
-                Whether you need a full-time engineer or a freelance consultant,
-                let's talk!
+                Whether you need a full-time development or a freelance
+                consultant, let's talk!
               </p>
             </div>
           </div>

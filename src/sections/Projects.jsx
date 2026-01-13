@@ -2,39 +2,39 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 const projects = [
   {
-    title: "Fintech Dashboard",
+    title: "Car E-commerce Platform",
     description:
-      "A comprehensive financial analytics platform with real-time data visualization, portfolio management, and AI-powered insights.",
-    image: "/projects/project1.png",
-    tags: ["React", "Typescript", "NodeJS"],
+      "A comprehensive car e-commerce platform with user authentication, product listings, and secure payment integration.",
+    image: "/design1.png",
+    tags: ["Vercel", "Tailwind CSS", "Html", "JavaScript", "Firebase", "React"],
     link: "#",
     github: "#",
   },
   {
-    title: "E-Commerce Platform",
+    title: "Sciencetific Calculator",
     description:
-      "A full-featured e-commerce solution with inventory management, payment processing, and analytics dashboard.",
-    image: "/projects/project2.png",
-    tags: ["Next.js", "Stripe", "PostgreSQL", "Tailwind"],
-    link: "#",
+      "A feature-rich scientific calculator web app with advanced mathematical functions and a user-friendly interface.",
+    image: "/design2.png",
+    tags: ["Vercel", "Tailwind CSS", "Html", "JavaScript", "Firebase", "React"],
+    link: "https://sigmasolve.vercel.app/",
     github: "#",
   },
   {
-    title: "AI Writing Assistant",
+    title: "Marm Note App ",
     description:
-      "An intelligent writing tool powered by GPT-4, helping users create better content faster.",
-    image: "/projects/project3.png",
-    tags: ["React", "OpenAI", "Python", "FastAPI"],
-    link: "#",
+      "A Note taking app that helps users organize their thoughts and ideas efficiently.",
+    image: "/design3.png",
+    tags: ["Vercel", "Tailwind CSS", "Html", "JavaScript", "Firebase", "React"],
+    link: "https://marmnote.vercel.app/",
     github: "#",
   },
   {
-    title: "Project Management Tool",
+    title: "Disney Cartoon Hub",
     description:
-      "A collaborative workspace for teams with real-time updates, task tracking, and integrations.",
-    image: "/projects/project4.png",
-    tags: ["Next.js", "Socket.io", "MongoDB", "Redis"],
-    link: "#",
+      "A Disney cartoon streaming platform with a vast collection of classic and modern Disney cartoons.",
+    image: "/design4.png",
+    tags: ["Vercel", "Tailwind CSS", "Html", "JavaScript", "Firebase", "React"],
+    link: "https://maldisney.vercel.app/",
     github: "#",
   },
 ];
@@ -88,12 +88,16 @@ export const Projects = () => {
                 <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <a
                     href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <ArrowUpRight className="w-5 h-5" />
                   </a>
                   <a
                     href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <Github className="w-5 h-5" />
