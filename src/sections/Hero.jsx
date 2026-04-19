@@ -157,8 +157,8 @@ export const Hero = () => {
               <span className="text-sm text-muted-foreground">Follow me: </span>
               {[
                 { icon: Github, href: "https://github.com/Abdulmalik-dev75" },
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" },
+                // { icon: Linkedin, href: "#" },
+                // { icon: Twitter, href: "#" },
               ].map((social, idx) => (
                 <motion.a
                   key={idx}

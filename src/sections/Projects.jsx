@@ -7,11 +7,11 @@ const projects = [
       "A comprehensive car e-commerce platform with user authentication, product listings, and secure payment integration.",
     image: "/design1.png",
     tags: ["Vercel", "Tailwind CSS", "Html", "JavaScript", "Firebase", "React"],
-    link: "#",
+    link: "https://carblitz.vercel.app",
     github: "#",
   },
   {
-    title: "Sciencetific Calculator",
+    title: "Scientific Calculator",
     description:
       "A feature-rich scientific calculator web app with advanced mathematical functions and a user-friendly interface.",
     image: "/design2.png",
@@ -77,10 +77,18 @@ export const Projects = () => {
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  style={{
+                    filter: "blur(10px)",
+                    transition: "filter 0.3s ease-in-out",
+                  }}
+                  onLoad={(e) => {
+                    e.target.style.filter = "blur(0px)";
+                  }}
                 />
                 <div
-                  className="absolute inset-0 
+                  className="absolute inset-0
                 bg-gradient-to-t from-card via-card/50
                  to-transparent opacity-60"
                 />

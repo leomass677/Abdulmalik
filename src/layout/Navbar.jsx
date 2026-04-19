@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -12,6 +13,7 @@ const navLinks = [
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,18 @@ export const Navbar = () => {
               </a>
             ))}
           </div>
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all ml-2"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </button>
         </div>
 
         {/* CTA Button */}
@@ -80,6 +94,22 @@ export const Navbar = () => {
                 {link.label}
               </a>
             ))}
+
+            {/* Theme Toggle Mobile */}
+            <button
+              onClick={() => {
+                toggleTheme();
+                setIsMobileMenuOpen(false);
+              }}
+              className="flex items-center gap-3 text-lg text-muted-foreground hover:text-foreground py-2"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
 
             <Button onClick={() => setIsMobileMenuOpen(false)}>
               Contact Me

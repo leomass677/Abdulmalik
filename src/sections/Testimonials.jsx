@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
@@ -10,6 +10,7 @@ const testimonials = [
     role: "Program Coordinator, Malhub Coworking Space",
     avatar:
       "https://cdn.pixabay.com/photo/2023/01/01/15/34/vulture-7690279_1280.jpg",
+    rating: 5,
   },
   {
     quote:
@@ -18,6 +19,7 @@ const testimonials = [
     role: "Product Manager, Malhub Coworking Space",
     avatar:
       "https://cdn.pixabay.com/photo/2024/07/21/10/22/vulture-8910009_1280.jpg",
+    rating: 5,
   },
   {
     quote:
@@ -26,6 +28,7 @@ const testimonials = [
     role: "Engineering Lead, Malhub Coworking Space",
     avatar:
       "https://cdn.pixabay.com/photo/2017/01/25/19/57/raptor-2008891_1280.jpg",
+    rating: 5,
   },
   {
     quote:
@@ -34,6 +37,7 @@ const testimonials = [
     role: "Community Lead, Malhub Coworking Space, Ilorin",
     avatar:
       "https://cdn.pixabay.com/photo/2020/08/27/14/55/adler-5522202_1280.jpg",
+    rating: 5,
   },
 ];
 
@@ -45,13 +49,14 @@ const getTestimonial = (index) => {
       author: "N/A",
       role: "N/A",
       avatar: "",
+      rating: 0,
     };
   }
   const safeIndex = Math.max(0, Math.min(index, testimonials.length - 1));
   return testimonials[safeIndex] || testimonials[0];
 };
 
-export const Testimonials = () => {
+export const Testimonials = memo(() => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -75,7 +80,7 @@ export const Testimonials = () => {
     if (testimonials.length === 0) return;
     setDirection(-1);
     setActiveIdx(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   }, []);
 
@@ -85,7 +90,7 @@ export const Testimonials = () => {
       setDirection(index > activeIdx ? 1 : -1);
       setActiveIdx(index);
     },
-    [activeIdx]
+    [activeIdx],
   );
 
   useEffect(() => {
@@ -95,8 +100,8 @@ export const Testimonials = () => {
     return () => clearInterval(interval);
   }, [next, isAutoPlaying]);
 
-  const handleMouseEnter = () => setIsAutoPlaying(false);
-  const handleMouseLeave = () => setIsAutoPlaying(true);
+  const handleMouseEnter = useCallback(() => setIsAutoPlaying(false), []);
+  const handleMouseLeave = useCallback(() => setIsAutoPlaying(true), []);
 
   const handleDragEnd = (event, info) => {
     const swipeThreshold = 50;
@@ -227,9 +232,23 @@ export const Testimonials = () => {
                     <Quote className="w-6 h-6 text-primary-foreground" />
                   </div>
 
-                  <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8 pt-4">
+                  <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-6 pt-4">
                     "{currentTestimonial.quote}"
                   </blockquote>
+
+                  {/* Star Rating */}
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${
+                          i < currentTestimonial.rating
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-muted-foreground/30"
+                        }`}
+                      />
+                    ))}
+                  </div>
 
                   <div className="flex items-center gap-4">
                     {currentTestimonial.avatar && (
@@ -346,4 +365,4 @@ export const Testimonials = () => {
       </div>
     </section>
   );
-};
+});
